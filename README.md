@@ -3,7 +3,7 @@
 
 ## Pengenalan
 
-Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (offline) dengan menggunakan framework Flutter + SQLite.
+Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (offline). Dibangun dengan menggunakan framework Flutter + SQLite.
 
 ## Screenshot
 <table>
