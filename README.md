@@ -1,7 +1,6 @@
 # Quranku
 <img src="assets/image/logo_quranku.png" height="200"><br>
 
-
 ## Pengenalan
 
 Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (offline) dengan menggunakan framework Flutter + SQLite.
@@ -13,6 +12,9 @@ Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (of
     <td><img src="assets/image/ss_bacasurah.jpg" ></td>
   </tr>
 </table>
+
+## Download APK
+Jika ingin menginstall langsung menggunakan APK dapat mengunjungi laman <a href="https://github.com/yuris60/quranku/tree/main/APK">berikut ini</a>.
 
 ## Sumber Data
 
