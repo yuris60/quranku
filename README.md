@@ -9,8 +9,8 @@ Baca Quran dari mana saja
 ## Screenshot
 <table>
   <tr>
-    <td><img src="assets/image/ss_home.jpg" height="400"></td>
-    <td><img src="assets/image/ss_bacasurah.jpg" height="400"></td>
+    <td><img src="assets/image/ss_home.jpg" height="600"></td>
+    <td><img src="assets/image/ss_bacasurah.jpg" height="600"></td>
   </tr>
 </table>
 
