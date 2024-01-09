@@ -4,7 +4,7 @@
 
 ## Pengenalan
 
-Baca Quran dari mana saja
+Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (offline) dengan menggunakan framework Flutter + SQLite
 
 ## Screenshot
 <table>
