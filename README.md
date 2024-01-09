@@ -9,8 +9,8 @@ Aplikasi Al-Quran digital dalam berbasis mobile, dapat diakses secara luring (of
 ## Screenshot
 <table>
   <tr>
-    <td><img src="assets/image/ss_home.jpg" height="600"></td>
-    <td><img src="assets/image/ss_bacasurah.jpg" height="600"></td>
+    <td><img src="assets/image/ss_home.jpg"></td>
+    <td><img src="assets/image/ss_bacasurah.jpg" ></td>
   </tr>
 </table>
 
