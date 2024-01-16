@@ -1,4 +1,4 @@
-package com.yakspace.quranku.quranku
+package com.yakspace.quranku
 
 import io.flutter.embedding.android.FlutterActivity
 
