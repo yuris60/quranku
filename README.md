@@ -3,13 +3,29 @@
 
 ## Pengenalan
 
-Aplikasi Al-Quran digital berbasis mobile, dapat diakses secara luring (offline). Dibangun dengan menggunakan framework Flutter + SQLite.
+Quranku adalah solusi alternatif bagi anda yang ingin membaca Al-Quran dimana saja. Dapatkan keberkahan Al-Quran hanya dalam genggaman anda.
+
+Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile Apps dan dapat diakses secara luring (offline).
 
 ## Screenshot
 <table>
   <tr>
-    <td><img src="assets/image/ss_home.jpg"></td>
-    <td><img src="assets/image/ss_bacasurah.jpg" ></td>
+    <td>
+      <h3 style="text-align: center">List Surah</h3>
+      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_home.png"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3 style="text-align: center">Baca Surah</h3>
+      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_bacasurah.png"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3 style="text-align: center">About</h3>
+      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_about.png"></div>
+    </td>
   </tr>
 </table>
 
