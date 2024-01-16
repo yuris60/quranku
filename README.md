@@ -1,5 +1,5 @@
 # Quranku
-<img src="assets/image/logo_quranku.png" height="200"><br>
+<div style="text-align:center"><img src="assets/image/logo_quranku.png" height="200"></div><br>
 
 ## Pengenalan
 
