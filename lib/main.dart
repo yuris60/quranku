@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quranku/ui/home_page.dart';
+import 'package:Quranku/ui/home_page.dart';
 
 void main() {
   runApp(const QurankuApp());

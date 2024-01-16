@@ -1,10 +1,9 @@
+import 'package:Quranku/ui/about_page.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
 class CoreDrawer extends StatefulWidget {
-  // String? nama_data, picture_data, email_data, nim_data;
-  // CoreDrawer({this.nama_data, this.picture_data, this.email_data, this.nim_data});
   const CoreDrawer({super.key});
 
   @override
@@ -43,7 +42,7 @@ class _CoreDrawerState extends State<CoreDrawer> {
               style: TextStyle(color: Colors.white, fontSize: 22*ffem, fontFamily: "Inter Bold"),
             ),
             accountEmail: Text(
-              "v.0.0.1 (Alpha)",
+              "v.0.0.2",
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -55,12 +54,12 @@ class _CoreDrawerState extends State<CoreDrawer> {
               color: Palette.primary,
             ),
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     new MaterialPageRoute(
-              //         builder: (context) => KhsPage()
-              //     )
-              // );
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => AboutPage()
+                  )
+              );
             },
           ),
         ],

@@ -1,8 +1,8 @@
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:quranku/ui/baca_quran_page.dart';
-import 'package:quranku/widget/drawer.dart';
+import 'package:Quranku/ui/baca_quran_page.dart';
+import 'package:Quranku/widget/drawer.dart';
 
 import '../constants.dart';
 import '../database/database_service.dart';
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
-              children: [
+              children: <Widget>[
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.fromLTRB(15*fem, 20*fem, 15*fem, 0*fem),
@@ -152,95 +152,95 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 _search.length != 0 || _searchcontroller.text.isNotEmpty ?
-                  ListView.builder(
-                    padding: EdgeInsets.only(top: 5*fem),
-                    physics: ScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: _search.length,
-                    itemBuilder: (context, index) {
-                      final search_surah = _search[index];
-                      return Column(
-                        children: [
-                          ListTile(
-                            leading: Stack(
-                              fit: StackFit.loose,
-                              children: [
-                                Image.asset("assets/image/frame.png", height: 42*fem),
-                                SizedBox(
-                                  width: 37*fem,
-                                  height: 40*fem,
-                                  child: Text(arabicNumber.convert(search_surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (search_surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                )
-                              ],
-                            ),
-                            title: Text(search_surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
-                            subtitle: Text(search_surah.arti! + " (" + search_surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
-                            trailing: Text(search_surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
-                            visualDensity: VisualDensity(vertical: -2),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return BacaQuranPage(
-                                      id: search_surah.id!.toString(),
-                                    );
-                                  },
-                                ),
-                              ).then((value) => getSurahAll());
-                            },
+                ListView.builder(
+                  padding: EdgeInsets.only(top: 5*fem),
+                  physics: ScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: _search.length,
+                  itemBuilder: (context, index) {
+                    final search_surah = _search[index];
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: Stack(
+                            fit: StackFit.loose,
+                            children: [
+                              Image.asset("assets/image/frame.png", height: 42*fem),
+                              SizedBox(
+                                width: 37*fem,
+                                height: 40*fem,
+                                child: Text(arabicNumber.convert(search_surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (search_surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
+                              )
+                            ],
                           ),
-                          Divider(),
-                        ],
-                      );
-                    },
-                  )
-                  :
-                  ListView.builder(
-                    padding: EdgeInsets.only(top: 5*fem),
-                    physics: ScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: surahs.length,
-                    itemBuilder: (context, index) {
-                      final surah = surahs[index];
-                      return Column(
-                        children: [
-                          ListTile(
-                            leading: Stack(
-                              fit: StackFit.loose,
-                              children: [
-                                Image.asset("assets/image/frame.png", height: 42*fem),
-                                SizedBox(
-                                  width: 37*fem,
-                                  height: 40*fem,
-                                  child: Text(arabicNumber.convert(surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                )
-                              ],
-                            ),
-                            title: Text(surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
-                            subtitle: Text(surah.arti! + " (" + surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
-                            trailing: Text(surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
-                            visualDensity: VisualDensity(vertical: -2),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return BacaQuranPage(
-                                      id: surah.id!.toString(),
-                                    );
-                                  },
-                                ),
-                              ).then((value) => getSurahAll());
-                            },
+                          title: Text(search_surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
+                          subtitle: Text(search_surah.arti! + " (" + search_surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
+                          trailing: Text(search_surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
+                          visualDensity: VisualDensity(vertical: -2),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BacaQuranPage(
+                                    id: search_surah.id!.toString(),
+                                  );
+                                },
+                              ),
+                            ).then((value) => getSurahAll());
+                          },
+                        ),
+                        Divider(),
+                      ],
+                    );
+                  },
+                )
+                    :
+                ListView.builder(
+                  padding: EdgeInsets.only(top: 5*fem),
+                  physics: ScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: surahs.length,
+                  itemBuilder: (context, index) {
+                    final surah = surahs[index];
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: Stack(
+                            fit: StackFit.loose,
+                            children: [
+                              Image.asset("assets/image/frame.png", height: 42*fem),
+                              SizedBox(
+                                width: 37*fem,
+                                height: 40*fem,
+                                child: Text(arabicNumber.convert(surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
+                              )
+                            ],
                           ),
-                          Divider(),
-                        ],
-                      );
-                    },
-                  )
+                          title: Text(surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
+                          subtitle: Text(surah.arti! + " (" + surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
+                          trailing: Text(surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
+                          visualDensity: VisualDensity(vertical: -2),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BacaQuranPage(
+                                    id: surah.id!.toString(),
+                                  );
+                                },
+                              ),
+                            ).then((value) => getSurahAll());
+                          },
+                        ),
+                        Divider(),
+                      ],
+                    );
+                  },
+                )
               ],
             ),
           ),
