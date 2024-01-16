@@ -12,19 +12,19 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
   <tr>
     <td>
       <h3 style="text-align: center">List Surah</h3>
-      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_home.png"></div>
+      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home.png"></div>
     </td>
   </tr>
   <tr>
     <td>
       <h3 style="text-align: center">Baca Surah</h3>
-      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_bacasurah.png"></div>
+      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_bacasurah.png"></div>
     </td>
   </tr>
   <tr>
     <td>
       <h3 style="text-align: center">About</h3>
-      <div style="text-align:center"><img width="50%" height="50%" src="assets/image/ss_about.png"></div>
+      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_about.png"></div>
     </td>
   </tr>
 </table>
