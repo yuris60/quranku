@@ -17,6 +17,12 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
   </tr>
   <tr>
     <td>
+      <h3 style="text-align: center">List Juz</h3>
+      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home2.png"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <h3 style="text-align: center">Baca Surah</h3>
       <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_bacasurah.png"></div>
     </td>
@@ -34,6 +40,8 @@ Jika ingin menginstall langsung menggunakan APK dapat mengunjungi laman <a href=
 
 ## Sumber Data
 
-Kami sangat berterimakasih kepada sumber-sumber data yang tercantum pada daftar berikut ini, karenanya aplikasi ini dapat diluncurkan.
+Data yang diambil pada Quranku sesuai dengan Kemenag yang diambil dari data-data yang tercantum pada daftar berikut ini. Ucapan terimakasih diucapkan kepada sumber-sumber berikut ini, karenanya aplikasi ini dapat diluncurkan. Semoga Allah memberikan pahala jariah baginya.
 
-1. <a href="https://github.com/sinoridha/quran-indonesia-db" target="_blank">quran-indonesia-db</a>
+1. <a href="https://github.com/sinoridha/quran-indonesia-db" target="_blank">Sinoridha</a>
+2. <a href="https://github.com/gadingnst/quran-api/blob/main/data/juz.json" target="_blank">Gadingnst</a>
+3. <a href="https://github.com/Abdallah-Mekky/Quran-Database" target="_blank">Abdallah-Mekky</a>
