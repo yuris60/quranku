@@ -42,7 +42,7 @@ class _CoreDrawerState extends State<CoreDrawer> {
               style: TextStyle(color: Colors.white, fontSize: 22*ffem, fontFamily: "Inter Bold"),
             ),
             accountEmail: Text(
-              "v.0.0.2",
+              "v." + Palette.app_version,
               style: TextStyle(color: Colors.white),
             ),
           ),
