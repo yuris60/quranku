@@ -84,7 +84,7 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if(ayat.no_ayat!.toString() == "1")
+                            if((ayat.no_ayat!.toString() == "1") || index==0)
                               Container(
                                 // margin: EdgeInsets.fromLTRB(10*fem, 10*fem, 10*fem, 10*fem),
                                 padding: EdgeInsets.fromLTRB(20 * fem, 30 * fem, 20 * fem, 30 * fem),
@@ -121,7 +121,7 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
                                 ),
                               ),
 
-                            if(ayat.no_ayat!.toString() == "1" && ayat.id!.toString() != "0")
+                            if((ayat.no_ayat!.toString() == "1" && ayat.id!.toString() != "0") || (index==0 && ayat.id_surah.toString() != "1"))
                               Image.asset("assets/image/bismillah_header2.jpg"),
 
                             Container(
@@ -142,12 +142,8 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
                                           child: Text(arabicNumber.convert(
                                               ayat.no_ayat.toString()),
                                               style: ArabicTextStyle(
-                                                  arabicFont: ArabicFont
-                                                      .scheherazade,
-                                                  fontSize: (ayat.no_ayat!
-                                                      .toString().length >= 3)
-                                                      ? 24 * ffem
-                                                      : 26 * fem,
+                                                  arabicFont: ArabicFont.scheherazade,
+                                                  fontSize: (ayat.no_ayat!.toString().length >= 3) ? 24 * ffem : 26 * fem,
                                                   letterSpacing: -2),
                                               textAlign: TextAlign.center),
                                         )
@@ -160,7 +156,7 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
                                       style: ArabicTextStyle(
                                           arabicFont: ArabicFont.scheherazade,
                                           fontSize: 32 * ffem,
-                                          height: 1.4 * fem),
+                                          height: 1.3 * fem),
                                       textAlign: TextAlign.end,
                                       softWrap: true,
                                     ),
