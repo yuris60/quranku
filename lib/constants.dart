@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class Palette{
 
   //APP VERSION
-  static String app_version = "0.0.3";
-  static String whats_new = "Menambahkan fitur baca Quran berdasarkan kategori juz.";
+  static String app_version = "0.0.4";
+  static String whats_new = "Menambahkan fitur baca Quran berdasarkan kategori halaman.";
 
   // COLOR
   static Color primary = Color(0xFF2a3881);
