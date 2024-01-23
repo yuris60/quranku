@@ -15,10 +15,13 @@ class _AboutPageState extends State<AboutPage> {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quranku", style: TextStyle(color: Colors.white),),
+        title: Text(
+          "Quranku",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Palette.primary,
         elevation: 0,
@@ -34,12 +37,16 @@ class _AboutPageState extends State<AboutPage> {
                 SizedBox(
                   height: 200*fem,
                   width: 200*fem,
-                  child: CircleAvatar(backgroundImage: AssetImage("assets/image/logo_quranku.png"))
+                  child: CircleAvatar(
+                  backgroundImage:
+                    AssetImage("assets/image/logo_quranku.png")
+                  )
                 ),
-
                 SizedBox(height: 10*fem,),
-
-                Text("QURANKU", style: TextStyle(fontSize: 30*ffem, fontFamily: "Inter Medium"),),
+                Text(
+                  "QURANKU",
+                  style: TextStyle(fontSize: 30*ffem, fontFamily: "Inter Medium"),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -54,28 +61,58 @@ class _AboutPageState extends State<AboutPage> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 20*fem,),
-
-                Text("Quranku adalah solusi alternatif bagi anda yang ingin membaca Al-Quran dimana saja. Dapatkan keberkahan Al-Quran hanya dalam genggaman anda.", textAlign: TextAlign.center, style: TextStyle(fontSize: 15*ffem,)),
-
+                Text(
+                  "Quranku adalah solusi alternatif bagi anda yang ingin membaca Al-Quran dimana saja. Dapatkan keberkahan Al-Quran hanya dalam genggaman anda.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15*ffem,
+                  )
+                ),
                 SizedBox(height: 20*fem,),
-
-                Text("What's New?", textAlign: TextAlign.center, style: TextStyle(fontSize: 15*ffem, fontFamily: "Inter Medium")),
-                Text(Palette.whats_new, textAlign: TextAlign.center, style: TextStyle(fontSize: 15*ffem,)),
-
+                Text("What's New?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15*ffem, fontFamily: "Inter Medium"
+                  )
+                ),
+                Text(Palette.whats_new,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15*ffem,
+                  )
+                ),
                 SizedBox(height: 20*fem,),
-
-                Text("Copyright © 2024 ", textAlign: TextAlign.center, style: TextStyle(fontSize: 15*ffem, fontFamily: "Inter Medium")),
-                Text("Yuris Alkhalifi", textAlign: TextAlign.center, style: TextStyle(fontSize: 20*ffem,)),
-                Text("https://github.com/yuris60", textAlign: TextAlign.center, style: TextStyle(fontSize: 12*ffem,)),
-
+                Text("Copyright © 2024 ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15*ffem, fontFamily: "Inter Medium")
+                ),
+                Text("Yuris Alkhalifi",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20*ffem,
+                    )),
+                Text("https://github.com/yuris60",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
                 SizedBox(height: 20*fem,),
-
-                Text("Thanks to : ", textAlign: TextAlign.center, style: TextStyle(fontSize: 15*ffem, fontFamily: "Inter Medium")),
-                Text("https://github.com/sinoridha", textAlign: TextAlign.center, style: TextStyle(fontSize: 12*ffem,)),
-                Text("https://github.com/gadingnst", textAlign: TextAlign.center, style: TextStyle(fontSize: 12*ffem,)),
-                Text("https://github.com/Abdallah-Mekky", textAlign: TextAlign.center, style: TextStyle(fontSize: 12*ffem,)),
+                Text("Thanks to : ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15*ffem, fontFamily: "Inter Medium")),
+                Text("https://github.com/sinoridha",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
+                Text("https://github.com/gadingnst",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
+                Text("https://github.com/Abdallah-Mekky",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
               ],
             ),
           ),
