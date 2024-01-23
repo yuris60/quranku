@@ -1,13 +1,11 @@
 # Quranku
 <div style="text-align:center"><img src="assets/image/logo_quranku.png" height="200"></div><br>
 
-## Pengenalan
-
 Quranku adalah solusi alternatif bagi anda yang ingin membaca Al-Quran dimana saja. Dapatkan keberkahan Al-Quran hanya dalam genggaman anda.
 
 Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile Apps dan dapat diakses secara luring (offline).
 
-## Screenshot
+## 📱 Screenshot
 <table>
   <tr>
     <td>
@@ -62,7 +60,7 @@ flutter packages get
 flutter run
 ```
 
-## Sumber Data
+## 📝 Sumber Data
 
 Data yang diambil pada Quranku sesuai dengan Kemenag yang diambil dari data-data yang tercantum pada daftar berikut ini. Ucapan terimakasih diucapkan kepada sumber-sumber berikut ini, karenanya aplikasi ini dapat diluncurkan. Semoga Allah memberikan pahala jariah baginya.
 
