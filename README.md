@@ -23,6 +23,12 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
   </tr>
   <tr>
     <td>
+      <h3 style="text-align: center">List Halaman</h3>
+      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home3.png"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <h3 style="text-align: center">Baca Surah</h3>
       <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_bacasurah.png"></div>
     </td>
@@ -35,8 +41,26 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
   </tr>
 </table>
 
-## Download APK
+## 📁 Download APK
 Jika ingin menginstall langsung menggunakan APK dapat mengunjungi laman <a href="https://github.com/yuris60/quranku/tree/main/APK">berikut ini</a>.
+
+## 💻 Developer
+
+- Android Studio Giraffe `2022.03.1 Patch 1`
+- VS Code `1.85.2`
+- Flutter `3.13.2`
+- Dart `3.1.0`
+- JDK `19.0.0`
+- Git `2.35.1`
+
+Buka CMD pada folder yang akan menyimpan kloning project, lalu jalankan perintah berikut:
+
+```
+git clone https://github.com/yuris60/quranku.git
+cd quranku
+flutter packages get
+flutter run
+```
 
 ## Sumber Data
 
