@@ -1,10 +1,10 @@
-import 'package:Quranku/model/quran_model.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 
+import '../model/juz_model.dart';
 import '../constants.dart';
-import '../database/database_service.dart';
+import '../service/juz_service.dart';
 
 class BacaJuzPage extends StatefulWidget {
   String? id_juz;
@@ -20,7 +20,7 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
   final arabicNumber = ArabicNumbers();
   final ayats = <BacaJuzModel>[];
   getAyat() async {
-    final ayat = await DatabaseQuranku.instance.bacaJuz(widget.id_juz!);
+    final ayat = await JuzService.instance.bacaJuz(widget.id_juz!);
     setState(() {
       this.ayats.clear();
       this.ayats.addAll(ayat);

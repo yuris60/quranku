@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:arabic_font/arabic_font.dart';
 
 import '../constants.dart';
-import '../database/database_service.dart';
-import '../model/quran_model.dart';
+import '../service/ayah_surah_service.dart';
+import '../service/surah_service.dart';
+import '../model/surah_model.dart';
 
 class BacaSurahPage extends StatefulWidget {
   String? id;
@@ -22,7 +23,7 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
   final arabicNumber = ArabicNumbers();
   final ayats = <BacaSurahModel>[];
   getAyat() async {
-    final ayat = await DatabaseQuranku.instance.bacaSurah(widget.id!);
+    final ayat = await AyahSurahService.instance.bacaSurah(widget.id!);
     setState(() {
       this.ayats.clear();
       this.ayats.addAll(ayat);
@@ -32,7 +33,7 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
 
   String? id='', nama_surah='', arti='', jml_ayat='', kategori='';
   getSurah() async {
-    final surah = await DatabaseQuranku.instance.getSurah(widget.id!);
+    final surah = await SurahService.instance.getSurah(widget.id!);
     setState(() {
       id = surah.id.toString();
       nama_surah = surah.nama_surah;

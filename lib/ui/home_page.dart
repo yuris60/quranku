@@ -1,16 +1,21 @@
-import 'dart:math';
-
-import 'package:Quranku/ui/baca_halaman_page.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:Quranku/ui/baca_surah_page.dart';
-import 'package:Quranku/widget/drawer.dart';
 
 import '../constants.dart';
-import '../database/database_service.dart';
-import '../model/quran_model.dart';
+import '../widget/drawer.dart';
+
+import '../service/surah_service.dart';
+import '../service/juz_service.dart';
+import '../service/halaman_service.dart';
+
+import '../model/surah_model.dart';
+import '../model/halaman_model.dart';
+import '../model/juz_model.dart';
+
 import 'baca_juz_page.dart';
+import 'baca_halaman_page.dart';
+import 'baca_surah_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   final _search = <ListSurahModel>[];
 
   getSurahAll() async {
-    final surah = await DatabaseQuranku.instance.listSurah();
+    final surah = await SurahService.instance.listSurah();
     setState(() {
       this.surahs.clear();
       this.surahs.addAll(surah);
@@ -41,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   bool _loadingjuz = true;
   final juzs = <ListJuzModel>[];
   getJuzAll() async {
-    final juz = await DatabaseQuranku.instance.listJuz();
+    final juz = await JuzService.instance.listJuz();
     setState(() {
       this.juzs.clear();
       this.juzs.addAll(juz);
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> {
 
   final halamans = <ListHalamanModel>[];
   getHalamanAll() async {
-    final halaman = await DatabaseQuranku.instance.listHalaman();
+    final halaman = await HalamanService.instance.listHalaman();
     setState(() {
       this.halamans.clear();
       this.halamans.addAll(halaman);
@@ -332,47 +337,47 @@ class _HomePageState extends State<HomePage> {
                       thumbColor: Palette.primary,
                       child: SingleChildScrollView(
                         child: ListView.builder(
-                          padding: EdgeInsets.only(top: 5*fem),
-                          physics: ScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: halamans.length,
-                          itemBuilder: (context, index) {
-                            final halaman = halamans[index];
-                            return Column(
-                              children: [
-                                ListTile(
-                                  leading: Stack(
-                                    fit: StackFit.loose,
-                                    children: [
-                                      Image.asset("assets/image/frame.png", height: 42*fem),
-                                      SizedBox(
-                                        width: 40*fem,
-                                        height: 40*fem,
-                                        child: Text(arabicNumber.convert(halaman.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                      )
-                                    ],
+                            padding: EdgeInsets.only(top: 5*fem),
+                            physics: ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: halamans.length,
+                            itemBuilder: (context, index) {
+                              final halaman = halamans[index];
+                              return Column(
+                                children: [
+                                  ListTile(
+                                    leading: Stack(
+                                      fit: StackFit.loose,
+                                      children: [
+                                        Image.asset("assets/image/frame.png", height: 42*fem),
+                                        SizedBox(
+                                          width: 40*fem,
+                                          height: 40*fem,
+                                          child: Text(arabicNumber.convert(halaman.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
+                                        )
+                                      ],
+                                    ),
+                                    title: Text("Halaman " + halaman.id!.toString(), style: TextStyle(fontFamily: 'Inter Medium')),
+                                    subtitle: Text("Mulai dari : Surah " + halaman.nama_surah! +  " Ayat " + halaman.no_ayat_mulai!.toString(), style: TextStyle(fontSize: 10*ffem),),
+                                    visualDensity: VisualDensity(vertical: -2),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return BacaHalamanPage(
+                                              id_halaman: halaman.id!.toString(),
+                                            );
+                                          },
+                                        ),
+                                      ).then((value) => getJuzAll());
+                                    },
                                   ),
-                                  title: Text("Halaman " + halaman.id!.toString(), style: TextStyle(fontFamily: 'Inter Medium')),
-                                  subtitle: Text("Mulai dari : Surah " + halaman.nama_surah! +  " Ayat " + halaman.no_ayat_mulai!.toString(), style: TextStyle(fontSize: 10*ffem),),
-                                  visualDensity: VisualDensity(vertical: -2),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return BacaHalamanPage(
-                                            id_halaman: halaman.id!.toString(),
-                                          );
-                                        },
-                                      ),
-                                    ).then((value) => getJuzAll());
-                                  },
-                                ),
-                                Divider(),
-                              ],
-                            );
-                          }
+                                  Divider(),
+                                ],
+                              );
+                            }
                         ),
                       ),
                     )
