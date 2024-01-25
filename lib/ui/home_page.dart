@@ -1,21 +1,19 @@
+import 'package:Quranku/cubit/juz_cubit.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+import '../cubit/halaman_cubit.dart';
+import '../cubit/surah_cubit.dart';
 import '../widget/drawer.dart';
-
-import '../service/surah_service.dart';
-import '../service/juz_service.dart';
-import '../service/halaman_service.dart';
-
-import '../model/surah_model.dart';
-import '../model/halaman_model.dart';
-import '../model/juz_model.dart';
 
 import 'baca_juz_page.dart';
 import 'baca_halaman_page.dart';
 import 'baca_surah_page.dart';
+
+import '../cubit/database_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,58 +30,20 @@ class _HomePageState extends State<HomePage> {
   ScrollController _scrollController = new ScrollController();
 
   final arabicNumber = ArabicNumbers();
-  final surahs = <ListSurahModel>[];
-  final _search = <ListSurahModel>[];
 
-  getSurahAll() async {
-    final surah = await SurahService.instance.listSurah();
-    setState(() {
-      this.surahs.clear();
-      this.surahs.addAll(surah);
-    });
-  }
-
-  bool _loadingjuz = true;
-  final juzs = <ListJuzModel>[];
-  getJuzAll() async {
-    final juz = await JuzService.instance.listJuz();
-    setState(() {
-      this.juzs.clear();
-      this.juzs.addAll(juz);
-      _loadingjuz = false;
-    });
-  }
-
-  final halamans = <ListHalamanModel>[];
-  getHalamanAll() async {
-    final halaman = await HalamanService.instance.listHalaman();
-    setState(() {
-      this.halamans.clear();
-      this.halamans.addAll(halaman);
-    });
-  }
-
-  onSearch(String text) async {
-    _search.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-
-    surahs.forEach((data) {
-      if (data.nama_surah!.toLowerCase().contains(text) || data.nama_surah!.startsWith(text))
-        _search.add(data);
-    });
-
-    setState(() {});
-  }
+  // onSearch(String text) async {
+  //   _search.clear();
+  //   if (text.isEmpty) {
+  //     setState(() {});
+  //     return;
+  //   }
+  //
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    getSurahAll();
-    getJuzAll();
-    getHalamanAll();
   }
 
   @override
@@ -164,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 25*fem,
                                   child: TextField(
                                     controller: _searchcontroller,
-                                    onChanged: onSearch,
+                                    // onChanged: onSearch,
                                     decoration: InputDecoration(
                                       hintText: "Cari Surah", border: InputBorder.none,
                                       contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 13*fem),
@@ -174,159 +134,153 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 visualDensity: VisualDensity(vertical: -3),
-                                trailing: (_search.length != 0 || _searchcontroller.text.isNotEmpty) ?
+                                trailing:
                                 IconButton(
                                   onPressed: () {
                                     _searchcontroller.clear();
-                                    onSearch('');
+                                    // onSearch('');
                                   },
                                   icon: Icon(Icons.cancel, color: Palette.primary),
-                                ) :
-                                Text(""),
+                                )
                               ),
                             ),
 
-                            _search.length != 0 || _searchcontroller.text.isNotEmpty ?
-                            ListView.builder(
-                              padding: EdgeInsets.only(top: 5*fem),
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: _search.length,
-                              itemBuilder: (context, index) {
-                                final search_surah = _search[index];
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      leading: Stack(
-                                        fit: StackFit.loose,
-                                        children: [
-                                          Image.asset("assets/image/frame.png", height: 42*fem),
-                                          SizedBox(
-                                            width: 40*fem,
-                                            height: 40*fem,
-                                            child: Text(arabicNumber.convert(search_surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (search_surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                          )
-                                        ],
+                            BlocProvider(
+                              create: (context) => ListSurahCubit()..getListSurah(),
+                              child: BlocBuilder<ListSurahCubit, SurahState>(
+                                builder: (context, state) {
+                                  if (state is ListSurahLoading) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 20*fem),
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
                                       ),
-                                      title: Text(search_surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
-                                      subtitle: Text(search_surah.arti! + " (" + search_surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
-                                      trailing: Text(search_surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
-                                      visualDensity: VisualDensity(vertical: -2),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return BacaSurahPage(
-                                                id: search_surah.id!.toString(),
-                                              );
-                                            },
-                                          ),
-                                        ).then((value) => getSurahAll());
+                                    );
+                                  }
+
+                                  else if(state is ListSurahSuccess){
+                                    return ListView.builder(
+                                    padding: EdgeInsets.only(top: 5*fem),
+                                    physics: ScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: state.surahlist.length,
+                                    itemBuilder: (context, index) {
+                                      final surah = state.surahlist[index];
+                                        return Column(
+                                          children: [
+                                            ListTile(
+                                              leading: Stack(
+                                                fit: StackFit.loose,
+                                                children: [
+                                                  Image.asset("assets/image/frame.png", height: 42*fem),
+                                                  SizedBox(
+                                                    width: 40*fem,
+                                                    height: 40*fem,
+                                                    child: Text(arabicNumber.convert(surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
+                                                  )
+                                                ],
+                                              ),
+                                              title: Text(surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
+                                              subtitle: Text(surah.arti! + " (" + surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
+                                              trailing: Text(surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
+                                              visualDensity: VisualDensity(vertical: -2),
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) {
+                                                      return BacaSurahPage(
+                                                        id: surah.id!.toString(),
+                                                        surah: surah
+                                                      );
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            Divider(),
+                                          ],
+                                        );
                                       },
-                                    ),
-                                    Divider(),
-                                  ],
-                                );
-                              },
-                            )
-                                :
-                            ListView.builder(
-                              padding: EdgeInsets.only(top: 5*fem),
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: surahs.length,
-                              itemBuilder: (context, index) {
-                                final surah = surahs[index];
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      leading: Stack(
-                                        fit: StackFit.loose,
-                                        children: [
-                                          Image.asset("assets/image/frame.png", height: 42*fem),
-                                          SizedBox(
-                                            width: 40*fem,
-                                            height: 40*fem,
-                                            child: Text(arabicNumber.convert(surah.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: (surah.id!.toString().length>=3) ? 24*ffem : 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                          )
-                                        ],
-                                      ),
-                                      title: Text(surah.nama_surah!, style: TextStyle(fontFamily: 'Inter Medium')),
-                                      subtitle: Text(surah.arti! + " (" + surah.jml_ayat!.toString() + " ayat)", style: TextStyle(fontSize: 10*ffem),),
-                                      trailing: Text(surah.arabic!, style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontWeight: FontWeight.bold, color: Palette.primary, fontSize: 29*ffem),),
-                                      visualDensity: VisualDensity(vertical: -2),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return BacaSurahPage(
-                                                id: surah.id!.toString(),
-                                              );
-                                            },
-                                          ),
-                                        ).then((value) => getSurahAll());
-                                      },
-                                    ),
-                                    Divider(),
-                                  ],
-                                );
-                              },
+                                    );
+                                  }
+                                  return Container();
+                                },
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
 
+                    // KATEGORI JUZ
                     RawScrollbar(
                       thickness: 5,
                       thumbColor: Palette.primary,
                       child: SingleChildScrollView(
-                        child: ListView.builder(
-                          padding: EdgeInsets.only(top: 5*fem),
-                          physics: ScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: juzs.length,
-                          itemBuilder: (context, index) {
-                            final juz = juzs[index];
-                            return Column(
-                              children: [
-                                ListTile(
-                                  leading: Stack(
-                                    fit: StackFit.loose,
+                        child: BlocProvider(
+                          create: (context) => ListJuzCubit()..getListJuz(),
+                          child: BlocBuilder<ListJuzCubit, JuzState>(
+                          builder: (context, state) {
+                            if (state is ListJuzLoading) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 20*fem),
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+
+                            else if(state is ListJuzSuccess){
+                              return ListView.builder(
+                                padding: EdgeInsets.only(top: 5*fem),
+                                physics: ScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: state.listjuz.length,
+                                itemBuilder: (context, index) {
+                                  final juz = state.listjuz[index];
+                                  return Column(
                                     children: [
-                                      Image.asset("assets/image/frame.png", height: 42*fem),
-                                      SizedBox(
-                                        width: 40*fem,
-                                        height: 40*fem,
-                                        child: Text(arabicNumber.convert(juz.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                      )
-                                    ],
-                                  ),
-                                  title: Text("Juz " + juz.id!.toString(), style: TextStyle(fontFamily: 'Inter Medium')),
-                                  subtitle: Text("Mulai dari : Surah " + juz.nama_surah! +  " Ayat " + juz.no_ayat_mulai!.toString(), style: TextStyle(fontSize: 10*ffem),),
-                                  visualDensity: VisualDensity(vertical: -2),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return BacaJuzPage(
-                                            id_juz: juz.id!.toString(),
+                                      ListTile(
+                                        leading: Stack(
+                                          fit: StackFit.loose,
+                                          children: [
+                                            Image.asset("assets/image/frame.png", height: 42*fem),
+                                            SizedBox(
+                                              width: 40*fem,
+                                              height: 40*fem,
+                                              child: Text(arabicNumber.convert(juz.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
+                                            )
+                                          ],
+                                        ),
+                                        title: Text("Juz " + juz.id!.toString(), style: TextStyle(fontFamily: 'Inter Medium')),
+                                        subtitle: Text("Mulai dari : Surah " + juz.nama_surah! +  " Ayat " + juz.no_ayat_mulai!.toString(), style: TextStyle(fontSize: 10*ffem),),
+                                        visualDensity: VisualDensity(vertical: -2),
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return BacaJuzPage(
+                                                  id_juz: juz.id!.toString(),
+                                                );
+                                              },
+                                            ),
                                           );
                                         },
                                       ),
-                                    ).then((value) => getJuzAll());
-                                  },
-                                ),
-                                Divider(),
-                              ],
-                            );
+                                      Divider(),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+
+                            return Container();
                           },
+                        ),
                         ),
                       ),
                     ),
@@ -336,48 +290,80 @@ class _HomePageState extends State<HomePage> {
                       thickness: 5,
                       thumbColor: Palette.primary,
                       child: SingleChildScrollView(
-                        child: ListView.builder(
-                            padding: EdgeInsets.only(top: 5*fem),
-                            physics: ScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: halamans.length,
-                            itemBuilder: (context, index) {
-                              final halaman = halamans[index];
-                              return Column(
-                                children: [
-                                  ListTile(
-                                    leading: Stack(
-                                      fit: StackFit.loose,
-                                      children: [
-                                        Image.asset("assets/image/frame.png", height: 42*fem),
-                                        SizedBox(
-                                          width: 40*fem,
-                                          height: 40*fem,
-                                          child: Text(arabicNumber.convert(halaman.id!.toString()), style: ArabicTextStyle(arabicFont: ArabicFont.scheherazade, fontSize: 26*fem, letterSpacing: -2), textAlign: TextAlign.center),
-                                        )
-                                      ],
-                                    ),
-                                    title: Text("Halaman " + halaman.id!.toString(), style: TextStyle(fontFamily: 'Inter Medium')),
-                                    subtitle: Text("Mulai dari : Surah " + halaman.nama_surah! +  " Ayat " + halaman.no_ayat_mulai!.toString(), style: TextStyle(fontSize: 10*ffem),),
-                                    visualDensity: VisualDensity(vertical: -2),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return BacaHalamanPage(
-                                              id_halaman: halaman.id!.toString(),
-                                            );
-                                          },
-                                        ),
-                                      ).then((value) => getJuzAll());
-                                    },
+                        child: BlocProvider(
+                          create: (context) => ListHalamanCubit()..getListHalaman(),
+                          child: BlocBuilder<ListHalamanCubit, HalamanState>(
+                            builder: (context, state) {
+                              if (state is ListHalamanLoading) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 20*fem),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
                                   ),
-                                  Divider(),
-                                ],
-                              );
-                            }
+                                );
+                              }
+
+                              else if(state is ListHalamanSuccess) {
+                                return ListView.builder(
+                                    padding: EdgeInsets.only(top: 5 * fem),
+                                    physics: ScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: state.listhalaman.length,
+                                    itemBuilder: (context, index) {
+                                      final halaman = state.listhalaman[index];
+                                      return Column(
+                                        children: [
+                                          ListTile(
+                                            leading: Stack(
+                                              fit: StackFit.loose,
+                                              children: [
+                                                Image.asset(
+                                                    "assets/image/frame.png",
+                                                    height: 42 * fem),
+                                                SizedBox(
+                                                  width: 40 * fem,
+                                                  height: 40 * fem,
+                                                  child: Text(
+                                                      arabicNumber.convert(halaman.id!.toString()),
+                                                      style: ArabicTextStyle(
+                                                          arabicFont: ArabicFont.scheherazade,
+                                                          fontSize: 26 * fem,
+                                                          letterSpacing: -2),
+                                                      textAlign: TextAlign.center),
+                                                )
+                                              ],
+                                            ),
+                                            title: Text("Halaman " +
+                                                halaman.id!.toString(),
+                                                style: TextStyle(fontFamily: 'Inter Medium')),
+                                            subtitle: Text(
+                                              "Mulai dari : Surah " + halaman.nama_surah! + " Ayat " + halaman.no_ayat_mulai!.toString(),
+                                              style: TextStyle(fontSize: 10 * ffem),),
+                                            visualDensity: VisualDensity(vertical: -2),
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return BacaHalamanPage(
+                                                      id_halaman: halaman.id!
+                                                          .toString(),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          Divider(),
+                                        ],
+                                      );
+                                    }
+                                );
+                              }
+                              return Container();
+                            },
+                          ),
                         ),
                       ),
                     )

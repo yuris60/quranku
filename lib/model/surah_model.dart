@@ -23,10 +23,10 @@ class ListSurahModel {
 
   factory ListSurahModel.fromMap(Map<String, dynamic> map) {
     return ListSurahModel(
-      id: map['id'] as int,
+      id: map['id'],
       nama_surah: map['nama_surah'] as String,
       arabic: map['arabic'] as String,
-      jml_ayat: map['jml_ayat'] as int,
+      jml_ayat: map['jml_ayat'],
       arti: map['arti'] as String,
       kategori: map['kategori'] as String,
     );

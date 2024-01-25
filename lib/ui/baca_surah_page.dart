@@ -1,15 +1,18 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:arabic_font/arabic_font.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+import '../cubit/surah_cubit.dart';
 import '../service/ayah_surah_service.dart';
 import '../service/surah_service.dart';
 import '../model/surah_model.dart';
 
 class BacaSurahPage extends StatefulWidget {
   String? id;
-  BacaSurahPage({required this.id});
+  ListSurahModel surah;
+  BacaSurahPage({required this.id, required this.surah});
 
   @override
   State<BacaSurahPage> createState() => _BacaSurahPageState();
@@ -31,24 +34,12 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
     });
   }
 
-  String? id='', nama_surah='', arti='', jml_ayat='', kategori='';
-  getSurah() async {
-    final surah = await SurahService.instance.getSurah(widget.id!);
-    setState(() {
-      id = surah.id.toString();
-      nama_surah = surah.nama_surah;
-      arti = surah.arti;
-      jml_ayat = surah.jml_ayat.toString();
-      kategori = surah.kategori;
-      _isloading2 = false;
-    });
-  }
+  List<ListSurahModel>? surah;
 
   @override
   void initState() {
     super.initState();
     getAyat();
-    getSurah();
   }
 
   @override
@@ -63,8 +54,8 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    if (_isloading == false && _isloading2 == false) {
-      return Scaffold(
+
+    return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text("Quranku", style: TextStyle(color: Colors.white),),
@@ -101,92 +92,137 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
                         // borderRadius: BorderRadius.all(Radius.circular(10 * fem)),
                         color: Palette.primary,
                         image: DecorationImage(
-                          image: AssetImage((kategori == 'Makiyah') ?  "assets/image/banner_mekkah.jpg" : "assets/image/banner_madinah.jpg"),
+                          image: AssetImage((widget.surah.kategori == 'Makiyah') ?  "assets/image/banner_mekkah.jpg" : "assets/image/banner_madinah.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(nama_surah!, style: TextStyle(color: Colors.white, fontSize: 20 * ffem, fontWeight: FontWeight.bold),),
-                          Text(arti!, style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
+                          Text(widget.surah.nama_surah!, style: TextStyle(color: Colors.white, fontSize: 20 * ffem, fontWeight: FontWeight.bold),),
+                          Text(widget.surah.arti!, style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
                           SizedBox(height: 15 * fem,),
-                          Text(jml_ayat! + " Ayat", style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
-                          Text(kategori!, style: TextStyle(color: Colors.white, fontSize: 12 * ffem))
+                          Text(widget.surah.jml_ayat.toString()! + " Ayat", style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
+                          Text(widget.surah.kategori!, style: TextStyle(color: Colors.white, fontSize: 12 * ffem))
                         ],
                       ),
                     ),
 
-                    if(id != "1")
+                    if(widget.surah.id.toString() != "1")
                       Image.asset("assets/image/bismillah_header2.jpg"),
 
-                    ListView.builder(
-                      // physics: AlwaysScrollableScrollPhysics(),
-                      physics: ScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: ayats.length,
-                      itemBuilder: (context, index) {
-                        final ayat = ayats[index];
-                        return Container(
-                          padding: EdgeInsets.symmetric(vertical: 10*fem, horizontal: 15*fem),
-                          color: (ayat.no_ayat! % 2 == 1) ? Colors.white : Palette.primary.withOpacity(0.05),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Text(ayat.ayahText!, style: TextStyle(fontSize: 24), textAlign: TextAlign.end),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Flexible(
-                                    child: Stack(
-                                      fit: StackFit.loose,
-                                      children: [
-                                        Image.asset("assets/image/frame.png", height: 40 * fem),
-                                        SizedBox(
-                                          width: 37 * fem,
-                                          height: 40 * fem,
-                                          child: Text(arabicNumber.convert(
-                                              ayat.no_ayat.toString()),
+                    BlocProvider(
+                      create: (context) => BacaSurahCubit()..getBacaSurah(widget.surah.id.toString()),
+                      child: BlocBuilder<BacaSurahCubit, SurahState>(
+                        builder: (context, state) {
+                          if (state is BacaSurahLoading) {
+                            return Padding(
+                              padding: EdgeInsets.only(top: 70*fem),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          }
+
+                          else if(state is BacaSurahSuccess) {
+                            return ListView.builder(
+                              // physics: AlwaysScrollableScrollPhysics(),
+                              physics: ScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: state.surahlist.length,
+                              itemBuilder: (context, index) {
+                                final ayat = ayats[index];
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10 * fem, horizontal: 15 * fem),
+                                  color: (ayat.no_ayat! % 2 == 1)
+                                      ? Colors.white
+                                      : Palette.primary.withOpacity(0.05),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      // Text(ayat.ayahText!, style: TextStyle(fontSize: 24), textAlign: TextAlign.end),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Flexible(
+                                            child: Stack(
+                                              fit: StackFit.loose,
+                                              children: [
+                                                Image.asset(
+                                                    "assets/image/frame.png",
+                                                    height: 40 * fem),
+                                                SizedBox(
+                                                  width: 37 * fem,
+                                                  height: 40 * fem,
+                                                  child: Text(
+                                                      arabicNumber.convert(
+                                                          ayat.no_ayat
+                                                              .toString()),
+                                                      style: ArabicTextStyle(
+                                                          arabicFont: ArabicFont
+                                                              .scheherazade,
+                                                          fontSize: (ayat
+                                                              .no_ayat!
+                                                              .toString()
+                                                              .length >= 3)
+                                                              ? 24 * ffem
+                                                              : 26 * fem,
+                                                          letterSpacing: -2
+                                                      ),
+                                                      textAlign: TextAlign
+                                                          .center
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+
+                                          Flexible(
+                                            flex: 6,
+                                            child: Text(
+                                              ayat.ayat_text!,
                                               style: ArabicTextStyle(
                                                   arabicFont: ArabicFont
                                                       .scheherazade,
-                                                  fontSize: (ayat.no_ayat!.toString().length >= 3)
-                                                      ? 24 * ffem
-                                                      : 26 * fem,
-                                                  letterSpacing: -2),
-                                              textAlign: TextAlign.center),
-                                        )
-                                      ],
-                                    ),
+                                                  fontSize: 32 * ffem,
+                                                  height: 1.4 * fem
+                                              ),
+                                              textAlign: TextAlign.end,
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      Text(
+                                        ayat.baca_text!,
+                                        style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            color: Palette.primary
+                                        ),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      SizedBox(height: 10 * fem),
+                                      Text(
+                                        ayat.indo_text!,
+                                        style: TextStyle(
+                                            fontFamily: 'Inter'),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ],
                                   ),
-                                  Flexible(
-                                    flex: 6,
-                                    child: Text(ayat.ayat_text!,
-                                      style: ArabicTextStyle(
-                                          arabicFont: ArabicFont.scheherazade,
-                                          fontSize: 32*ffem,
-                                          height: 1.4*fem),
-                                      textAlign: TextAlign.end,
-                                      softWrap: true,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(ayat.baca_text!, style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  color: Palette.primary
-                              ),
-                                textAlign: TextAlign.start,),
-                              SizedBox(height: 10 * fem),
-                              Text(ayat.indo_text!,
-                                style: TextStyle(fontFamily: 'Inter'),
-                                textAlign: TextAlign.start,),
-                            ],
-                          ),
-                        );
-                      },
+                                );
+                              },
+                            );
+                          }
+                          return Container();
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -194,23 +230,23 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
             ),
           )
       );
-    } else {
-      return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-        ),
-        body: Center(
-          child: Container(
-            color: Colors.white,
-            child: SizedBox(
-              height: 300*fem,
-              child: Image.asset("assets/image/loading.png")
-            ),
-          ),
-        ),
-      );
-    }
+    // } else {
+    //   return Scaffold(
+    //     backgroundColor: Colors.white,
+    //     appBar: AppBar(
+    //       backgroundColor: Colors.white,
+    //       elevation: 0,
+    //     ),
+    //     body: Center(
+    //       child: Container(
+    //         color: Colors.white,
+    //         child: SizedBox(
+    //           height: 300*fem,
+    //           child: Image.asset("assets/image/loading.png")
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    // }
   }
 }
