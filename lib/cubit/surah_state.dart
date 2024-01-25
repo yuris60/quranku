@@ -2,6 +2,8 @@ part of 'surah_cubit.dart';
 
 abstract class SurahState {}
 
+class SurahInitial extends SurahState {}
+
 class ListSurahInitial extends SurahState {}
 
 class ListSurahLoading extends ListSurahInitial{}
@@ -18,9 +20,9 @@ class BacaSurahInitial extends SurahState {}
 class BacaSurahLoading extends BacaSurahInitial{}
 
 class BacaSurahSuccess extends BacaSurahInitial{
-  final List<BacaSurahModel> surahlist;
+  final List<BacaSurahModel> surahbaca;
   BacaSurahSuccess({
-    required this.surahlist
+    required this.surahbaca
   });
 }
 
@@ -29,8 +31,8 @@ class GetSurahInitial extends SurahState {}
 class GetSurahLoading extends GetSurahInitial{}
 
 class GetSurahSuccess extends GetSurahInitial{
-  final List<ListSurahModel> surahlist;
+  final List<ListSurahModel> surahget;
   GetSurahSuccess({
-    required this.surahlist,
+    required this.surahget,
   });
 }
