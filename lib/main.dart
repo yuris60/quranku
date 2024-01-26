@@ -1,17 +1,15 @@
-import 'package:Quranku/cubit/database_cubit.dart';
+import 'package:Quranku/cubit/database/database_cubit_logic.dart';
+import 'package:Quranku/cubit/database/database_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:Quranku/ui/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/surah_cubit.dart';
+import 'cubit/halaman/halaman_cubit.dart';
+import 'cubit/juz/juz_cubit.dart';
+import 'cubit/surah/surah_cubit.dart';
 
 void main() {
-  runApp(BlocProvider(
-    create: (context) =>
-    DatabaseCubit()
-      ..initDB(),
-    child: const QurankuApp(),
-  ));
+  runApp(const QurankuApp());
 }
 
 class QurankuApp extends StatefulWidget {
@@ -22,23 +20,30 @@ class QurankuApp extends StatefulWidget {
 }
 
 class _QurankuAppState extends State<QurankuApp> {
-
-  SurahCubit? _surah;
-
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => _surah!..getListSurah(),),
-        BlocProvider(create: (context) => _surah!..getBacaSurah("1"),),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Inter'
         ),
-        home: HomePage(),
-      ),
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider<DatabaseCubit>(
+              create: (context) => DatabaseCubit()..initDB(),
+            ),
+            BlocProvider<SurahCubit>(
+              create: (context) => SurahCubit(database: context.read<DatabaseCubit>().database!)..getListSurah(),
+            ),
+            BlocProvider<JuzCubit>(
+              create: (context) => JuzCubit(database: context.read<DatabaseCubit>().database!)..getListJuz(),
+            ),
+            BlocProvider<HalamanCubit>(
+              create: (context) => HalamanCubit(database: context.read<DatabaseCubit>().database!)..getListHalaman(),
+            ),
+          ],
+          child: DatabaseCubicLogic(),
+        )
     );
   }
 }
