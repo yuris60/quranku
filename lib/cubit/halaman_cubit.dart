@@ -7,7 +7,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/halaman_model.dart';
-import 'database_cubit.dart';
+import 'database/database_cubit.dart';
 
 part 'halaman_state.dart';
 
