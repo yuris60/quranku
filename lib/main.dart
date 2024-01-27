@@ -1,8 +1,8 @@
-import 'package:Quranku/cubit/database/database_cubit_logic.dart';
-import 'package:Quranku/cubit/database/database_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:Quranku/ui/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'cubit/database/database_logic.dart';
+import 'cubit/database/database_cubit.dart';
 
 import 'cubit/halaman/halaman_cubit.dart';
 import 'cubit/juz/juz_cubit.dart';

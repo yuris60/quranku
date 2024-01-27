@@ -1,5 +1,5 @@
-import 'package:Quranku/cubit/baca/baca_cubit.dart';
-import 'package:Quranku/cubit/database/database_cubit.dart';
+import '../cubit/baca/baca_cubit.dart';
+import '../cubit/database/database_cubit.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';

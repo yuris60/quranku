@@ -1,13 +1,14 @@
-import 'package:Quranku/cubit/surah/surah_cubit.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../constants.dart';
-import '../../ui/home_page.dart';
+import '../cubit/surah/surah_cubit.dart';
 import '../cubit/baca/baca_cubit.dart';
 import '../cubit/database/database_cubit.dart';
+
+import '../../constants.dart';
+import '../../screens/home_page.dart';
 
 class BacaSurahPage extends StatefulWidget {
   const BacaSurahPage({super.key});
