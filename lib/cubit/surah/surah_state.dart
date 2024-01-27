@@ -21,21 +21,21 @@ class ListSurahSuccess extends ListSurahInitial{
   });
 }
 
-class BacaSurahInitial extends SurahState {
-  @override
-  List<Object?> get props => [];
-}
-
-class BacaSurahLoading extends BacaSurahInitial{}
-
-class BacaSurahSuccess extends BacaSurahInitial{
-  final List<BacaSurahModel> surahbaca;
-  final String id;
-  BacaSurahSuccess({
-    required this.surahbaca,
-    required this.id
-  });
-}
+// class BacaSurahInitial extends SurahState {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class BacaSurahLoading extends BacaSurahInitial{}
+//
+// class BacaSurahSuccess extends BacaSurahInitial{
+//   BacaSurahSuccess(this.surahbaca);
+//   final List<BacaSurahModel> surahbaca;
+//   // BacaSurahSuccess({
+//   //   required this.surahbaca
+//   // });
+//   List<Object?> get props => [surahbaca];
+// }
 
 class GetSurahInitial extends SurahState {
   @override
@@ -45,8 +45,10 @@ class GetSurahInitial extends SurahState {
 class GetSurahLoading extends GetSurahInitial{}
 
 class GetSurahSuccess extends GetSurahInitial{
+  GetSurahSuccess(this.surahget);
   final List<ListSurahModel> surahget;
-  GetSurahSuccess({
-    required this.surahget,
-  });
+  // GetSurahSuccess({
+  //   required this.surahget,
+  // });
+  List<Object?> get props => [surahget];
 }

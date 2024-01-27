@@ -1,13 +1,13 @@
+import 'package:Quranku/cubit/surah/surah_cubit.dart';
+import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:arabic_font/arabic_font.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
+import '../../ui/home_page.dart';
+import '../cubit/baca/baca_cubit.dart';
 import '../cubit/database/database_cubit.dart';
-import '../cubit/surah_cubit.dart';
-import '../model/surah_model.dart';
-
 
 class BacaSurahPage extends StatefulWidget {
   const BacaSurahPage({super.key});
@@ -17,17 +17,7 @@ class BacaSurahPage extends StatefulWidget {
 }
 
 class _BacaSurahPageState extends State<BacaSurahPage> {
-
-  ScrollController controller = ScrollController();
-
   final arabicNumber = ArabicNumbers();
-
-  SurahCubit? _surah;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,75 +26,80 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
     double ffem = fem * 0.97;
 
     return Scaffold(
-       backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text("Quranku", style: TextStyle(color: Colors.white),),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          ),
-          backgroundColor: Palette.primary,
-          // centerTitle: true,
-          elevation: 0,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset("assets/image/logo_quranku_white.png"),
-            )
-          ],
+      appBar: AppBar(
+        title: Text("Quranku", style: TextStyle(color: Colors.white),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
-        body: Container(
-          width: double.infinity,
-          child: RawScrollbar(
-            thickness: 5,
-            thumbColor: Palette.primary,
-            child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
+        backgroundColor: Palette.primary,
+        // centerTitle: true,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/image/logo_quranku_white.png"),
+          )
+        ],
+      ),
+      body: BlocBuilder<DatabaseCubit, DatabaseState>(
+        builder: (context, state) {
+          if(state is LoadDatabaseState){
+            return SingleChildScrollView(
               child: Column(
                 children: [
-                    // Container(
-                    //   // margin: EdgeInsets.fromLTRB(10*fem, 10*fem, 10*fem, 10*fem),
-                    //   padding: EdgeInsets.fromLTRB(20*fem, 30*fem, 20*fem, 30*fem),
-                    //   width: double.infinity,
-                    //   decoration: BoxDecoration(
-                    //     // borderRadius: BorderRadius.all(Radius.circular(10*fem)),
-                    //     color: Palette.primary,
-                    //     image: DecorationImage(
-                    //       image: AssetImage((widget.surah.kategori == 'Makiyah') ?  "assets/image/banner_mekkah.jpg" : "assets/image/banner_madinah.jpg"),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Text(widget.surah.nama_surah!, style: TextStyle(color: Colors.white, fontSize: 20 * ffem, fontWeight: FontWeight.bold),),
-                    //       Text(widget.surah.arti!, style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
-                    //       SizedBox(height: 15*fem,),
-                    //       Text(widget.surah.jml_ayat.toString()! + " Ayat", style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
-                    //       Text(widget.surah.kategori!, style: TextStyle(color: Colors.white, fontSize: 12 * ffem))
-                    //     ],
-                    //   ),
-                    // ),
-
-                    // if(widget.surah.id.toString() != "1")
-                    //   Image.asset("assets/image/bismillah_header2.jpg"),
-
-                    BlocBuilder<SurahCubit, SurahState>(
+                  BlocBuilder<SurahCubit, SurahState>(
+                    builder: (context, state) {
+                      if(state is GetSurahSuccess){
+                        return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: state.surahget.length,
+                          itemBuilder: (context, index) {
+                            final surah = state.surahget[index];
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(20*fem, 30*fem, 20*fem, 30*fem),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    // borderRadius: BorderRadius.all(Radius.circular(10 * fem)),
+                                    color: Palette.primary,
+                                    image: DecorationImage(
+                                      image: AssetImage((surah.kategori == 'Makiyah') ?  "assets/image/banner_mekkah.jpg" : "assets/image/banner_madinah.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(surah.nama_surah!, style: TextStyle(color: Colors.white, fontSize: 20 * ffem, fontWeight: FontWeight.bold),),
+                                      Text(surah.arti!, style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
+                                      SizedBox(height: 15 * fem,),
+                                      Text(surah.jml_ayat!.toString() + " Ayat", style: TextStyle(color: Colors.white, fontSize: 16 * ffem)),
+                                      Text(surah.kategori!, style: TextStyle(color: Colors.white, fontSize: 12 * ffem))
+                                    ],
+                                  ),
+                                ),
+                                if(surah.id != "1")
+                                  Image.asset("assets/image/bismillah_header2.jpg"),
+                              ],
+                            );
+                          }
+                        );
+                      }
+                      else {
+                        return Container();
+                      }
+                    },
+                  ),
+                  
+                  BlocBuilder<BacaCubit, BacaState>(
                       builder: (context, state) {
-                        if (state is BacaSurahLoading) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 70*fem),
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-
-                        else if(state is BacaSurahSuccess) {
+                        if (state is BacaSurahSuccess) {
                           return ListView.builder(
-                            // physics: AlwaysScrollableScrollPhysics(),
                             physics: ScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
@@ -185,32 +180,21 @@ class _BacaSurahPageState extends State<BacaSurahPage> {
                             },
                           );
                         }
-                        return Container();
-                      },
-                    ),
-                  ],
-                ),
+                        if (state is ListSurahSuccess) {
+                          return HomePage();
+                        } else {
+                          return Container();
+                        }
+                      }
+                  ),
+                ],
               ),
-            ),
-          )
-       );
-    // } else {
-    //   return Scaffold(
-    //     backgroundColor: Colors.white,
-    //     appBar: AppBar(
-    //       backgroundColor: Colors.white,
-    //       elevation: 0,
-    //     ),
-    //     body: Center(
-    //       child: Container(
-    //         color: Colors.white,
-    //         child: SizedBox(
-    //           height: 300*fem,
-    //           child: Image.asset("assets/image/loading.png")
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // }
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
   }
 }

@@ -1,5 +1,3 @@
-import 'package:Quranku/cubit/surah/surah_cubit_logic.dart';
-import 'package:Quranku/cubit/surah_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,10 +1,10 @@
-import 'package:Quranku/cubit/surah/surah_cubit_logic.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+import '../cubit/baca/baca_cubit.dart';
 import '../widget/drawer.dart';
 
 import '../cubit/surah/surah_cubit.dart';
@@ -153,9 +153,19 @@ class _HomePageState extends State<HomePage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) {
-                                                    return BlocProvider<SurahCubit>(
-                                                      create: (context) => SurahCubit(database: context.read<DatabaseCubit>().database!)..getBacaSurah(surah.id!.toString()),
-                                                      child: SurahCubitLogic(),
+                                                    return MultiBlocProvider(
+                                                      providers: [
+                                                        BlocProvider<DatabaseCubit>(
+                                                          create: (context) => DatabaseCubit()..initDB(),
+                                                        ),
+                                                        BlocProvider<BacaCubit>(
+                                                          create: (context) => BacaCubit(database: context.read<DatabaseCubit>().database!)..getBacaSurah(surah.id!.toString()),
+                                                        ),
+                                                        BlocProvider<SurahCubit>(
+                                                          create: (context) => SurahCubit(database: context.read<DatabaseCubit>().database!)..getSurah(surah.id!.toString()),
+                                                        ),
+                                                      ],
+                                                      child: BacaSurahPage(),
                                                     );
                                                   },
                                                 ),
@@ -242,8 +252,16 @@ class _HomePageState extends State<HomePage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) {
-                                                return BacaJuzPage(
-                                                  id_juz: juz.id!.toString(),
+                                                return MultiBlocProvider(
+                                                  providers: [
+                                                    BlocProvider<DatabaseCubit>(
+                                                      create: (context) => DatabaseCubit()..initDB(),
+                                                    ),
+                                                    BlocProvider<BacaCubit>(
+                                                      create: (context) => BacaCubit(database: context.read<DatabaseCubit>().database!)..getBacaJuz(juz.id!.toString()),
+                                                    ),
+                                                  ],
+                                                  child: BacaJuzPage(id_juz: juz.id!.toString()),
                                                 );
                                               },
                                             ),
@@ -322,12 +340,20 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           visualDensity: VisualDensity(vertical: -2),
                                           onTap: () {
-                                            Navigator.push (
+                                            Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) {
-                                                  return BacaHalamanPage(
-                                                    id_halaman: halaman.id!.toString(),
+                                                  return MultiBlocProvider(
+                                                    providers: [
+                                                      BlocProvider<DatabaseCubit>(
+                                                        create: (context) => DatabaseCubit()..initDB(),
+                                                      ),
+                                                      BlocProvider<BacaCubit>(
+                                                        create: (context) => BacaCubit(database: context.read<DatabaseCubit>().database!)..getBacaHalaman(halaman.id!.toString()),
+                                                      ),
+                                                    ],
+                                                    child: BacaHalamanPage(id_halaman: halaman.id!.toString()),
                                                   );
                                                 },
                                               ),
