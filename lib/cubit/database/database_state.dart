@@ -8,6 +8,10 @@ class DatabaseInitial extends DatabaseState {
   List<Object?> get props => [];
 }
 
+/***
+ * LOAD DB
+ * Trigger saat loading mencari database
+ */
 class LoadDatabaseState extends DatabaseState{
   @override
   List<Object?> get props => [];

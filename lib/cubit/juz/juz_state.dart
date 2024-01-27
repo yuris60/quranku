@@ -9,30 +9,19 @@ class JuzInitial extends JuzState {
   List<Object?> get props => [];
 }
 
+/***
+ * GET LIST JUZ
+ * Trigger saat loading list juz pada Home Page
+ */
 class ListJuzInitial extends JuzState {
   @override
   List<Object?> get props => [];
 }
-
 class ListJuzLoading extends ListJuzInitial{}
-
 class ListJuzSuccess extends ListJuzInitial{
+  ListJuzSuccess(this.juzlist);
   final List<ListJuzModel> juzlist;
-  ListJuzSuccess({
-    required this.juzlist
-  });
-}
 
-class BacaJuzInitial extends JuzState {
-  @override
-  List<Object?> get props => [];
-}
+  List<Object?> get props => [juzlist];
 
-class BacaJuzLoading extends BacaJuzInitial{}
-
-class BacaJuzSuccess extends BacaJuzInitial{
-  final List<BacaJuzModel> juzbaca;
-  BacaJuzSuccess({
-    required this.juzbaca
-  });
 }

@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../model/juz_model.dart';
 import '../../repository/juz_repository.dart';
 
-part 'juz_cubit_state.dart';
+part 'juz_state.dart';
 
 class JuzCubit extends Cubit<JuzState> {
   final juzRepo = JuzRepository();
@@ -13,26 +13,14 @@ class JuzCubit extends Cubit<JuzState> {
   JuzCubit({required this.database}) : super(JuzInitial());
 
   List<ListJuzModel> juzlist = [];
-  List<BacaJuzModel> juzbaca = [];
 
   Future<void> getListJuz() async {
     try {
       emit(ListJuzLoading());
       juzlist = await juzRepo.getListJuz(database: database);
-      emit(ListJuzSuccess(juzlist: juzlist));
+      emit(ListJuzSuccess(juzlist));
     } catch(e) {
       print(e);
-      // emit(ListJuzLoading());
-    }
-  }
-
-  Future<void> getBacaJuz(String id) async {
-    try {
-      // emit(BacaJuzLoading());
-      juzbaca = await juzRepo.getBacaJuz(database, id);
-      emit(BacaJuzSuccess(juzbaca: juzbaca));
-    } catch (e) {
-      print(e); // Catches all types of `Exception` and `Error`.
     }
   }
 }

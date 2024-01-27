@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../model/surah_model.dart';
 
-part 'surah_cubit_state.dart';
+part 'surah_state.dart';
 
 class SurahCubit extends Cubit<SurahState> {
   final surahRepo = SurahRepository();
@@ -13,27 +13,15 @@ class SurahCubit extends Cubit<SurahState> {
   SurahCubit({required this.database}) : super(SurahInitial());
 
   List<ListSurahModel> surahlist = [];
-  List<BacaSurahModel> surahbaca = [];
   List<ListSurahModel> surahget = [];
 
   Future<void> getListSurah() async {
     try {
       emit(ListSurahLoading());
       surahlist = await surahRepo.getListSurah(database: database);
-      emit(ListSurahSuccess(surahlist: surahlist));
+      emit(ListSurahSuccess(surahlist));
     } catch(e) {
       print(e);
-      // emit(ListSurahLoading());
-    }
-  }
-
-  Future<void> getBacaSurah(String id) async {
-    try {
-      emit(BacaSurahLoading());
-      surahbaca = await surahRepo.getBacaSurah(database, id);
-      emit(BacaSurahSuccess(surahbaca: surahbaca, id: id));
-    } catch (e) {
-      print(e); // Catches all types of `Exception` and `Error`.
     }
   }
 
@@ -41,9 +29,9 @@ class SurahCubit extends Cubit<SurahState> {
     try {
       emit(GetSurahLoading());
       surahget = await surahRepo.getSurah(database: database, id: id);
-      emit(GetSurahSuccess(surahget: surahget));
+      emit(GetSurahSuccess(surahget));
     } catch(e) {
-      // emit(GetSurahLoading());
+      print(e);
     }
   }
 }

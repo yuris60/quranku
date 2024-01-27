@@ -9,30 +9,18 @@ class HalamanInitial extends HalamanState {
   List<Object> get props => [];
 }
 
+/***
+ * GET LIST HALAMAN
+ * Trigger saat loading list halaman pada Home Page
+ */
 class ListHalamanInitial extends HalamanState {
   @override
   List<Object?> get props => [];
 }
-
 class ListHalamanLoading extends ListHalamanInitial{}
-
 class ListHalamanSuccess extends ListHalamanInitial{
+  ListHalamanSuccess(this.halamanlist);
   final List<ListHalamanModel> halamanlist;
-  ListHalamanSuccess({
-    required this.halamanlist
-  });
-}
 
-class BacaHalamanInitial extends HalamanState {
-  @override
-  List<Object?> get props => [];
-}
-
-class BacaHalamanLoading extends BacaHalamanInitial{}
-
-class BacaHalamanSuccess extends BacaHalamanInitial{
-  final List<BacaHalamanModel> halamanbaca;
-  BacaHalamanSuccess({
-    required this.halamanbaca
-  });
+  List<Object?> get props => [halamanlist];
 }

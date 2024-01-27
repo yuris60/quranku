@@ -7,48 +7,36 @@ class SurahInitial extends SurahState {
   List<Object?> get props => [];
 }
 
+
+/***
+ * GET LIST SURAH
+ * Trigger saat loading list surah pada Home Page
+ */
 class ListSurahInitial extends SurahState {
   @override
   List<Object?> get props => [];
 }
-
 class ListSurahLoading extends ListSurahInitial{}
-
 class ListSurahSuccess extends ListSurahInitial{
+  ListSurahSuccess(this.surahlist);
   final List<ListSurahModel> surahlist;
-  ListSurahSuccess({
-    required this.surahlist
-  });
+
+  List<Object?> get props => [surahlist];
 }
 
-// class BacaSurahInitial extends SurahState {
-//   @override
-//   List<Object?> get props => [];
-// }
-//
-// class BacaSurahLoading extends BacaSurahInitial{}
-//
-// class BacaSurahSuccess extends BacaSurahInitial{
-//   BacaSurahSuccess(this.surahbaca);
-//   final List<BacaSurahModel> surahbaca;
-//   // BacaSurahSuccess({
-//   //   required this.surahbaca
-//   // });
-//   List<Object?> get props => [surahbaca];
-// }
-
+/***
+ * GET SURAH (BY ID)
+ * Trigger saat loading mencari data surah pada Surah Page
+ */
 class GetSurahInitial extends SurahState {
   @override
   List<Object?> get props => [];
 }
-
 class GetSurahLoading extends GetSurahInitial{}
 
 class GetSurahSuccess extends GetSurahInitial{
   GetSurahSuccess(this.surahget);
   final List<ListSurahModel> surahget;
-  // GetSurahSuccess({
-  //   required this.surahget,
-  // });
+
   List<Object?> get props => [surahget];
 }

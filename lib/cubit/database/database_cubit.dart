@@ -5,13 +5,12 @@ import 'package:meta/meta.dart';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-part 'database_cubit_state.dart';
+part 'database_state.dart';
 
 class DatabaseCubit extends Cubit<DatabaseState> {
   DatabaseCubit() : super(DatabaseInitial());
@@ -19,6 +18,7 @@ class DatabaseCubit extends Cubit<DatabaseState> {
   Database? database;
 
   String surahtable = "surah";
+  String juztable = "juz";
   String ayahsurahtable = "ayah_surah";
 
   Future<void> initDB() async {
@@ -50,6 +50,14 @@ class DatabaseCubit extends Cubit<DatabaseState> {
             indo_text TEXT NOT NULL,
             baca_text TEXT NOT NULL
           )""");
+
+          await db.execute("""CREATE TABLE IF NOT EXISTS $juztable (
+            id INTEGER PRIMARY KEY NOT NULL,
+            id_surah_mulai INTEGER NOT NULL,
+            no_ayat_mulai INTEGER NOT NULL,
+            id_surah_akhir INTEGER NOT NULL,
+            no_ayat_akhir INTEGER NOT NULL,
+          )""");
         },
       );
       emit(LoadDatabaseState());
@@ -59,25 +67,6 @@ class DatabaseCubit extends Cubit<DatabaseState> {
       } catch (e) {
         // log(e.toString());
       }
-    }
-
-    void createTable(Database db, int version) async {
-      await db.execute("""CREATE TABLE IF NOT EXISTS $surahtable (
-        id INTEGER NOT NULL,
-        id_surah INTEGER NOT NULL,
-        no_ayat INTEGER NOT NULL,
-        juz INTEGER NOT NULL,
-        halaman INTEGER NOT NULL,
-        ayat_text TEXT NOT NULL
-        indo_text TEXT NOT NULL
-        baca_text TEXT NOT NULL
-      )""");
-    }
-
-    void onUpgrade(Database database,
-        int oldVersion,
-        int newVersion,) {
-      if (newVersion > oldVersion) {}
     }
   }
 }
