@@ -23,10 +23,10 @@ class ListSurahModel {
 
   factory ListSurahModel.fromMap(Map<String, dynamic> map) {
     return ListSurahModel(
-      id: map['id'] as int,
+      id: map['id'],
       nama_surah: map['nama_surah'] as String,
       arabic: map['arabic'] as String,
-      jml_ayat: map['jml_ayat'] as int,
+      jml_ayat: map['jml_ayat'],
       arti: map['arti'] as String,
       kategori: map['kategori'] as String,
     );
@@ -42,17 +42,21 @@ class BacaSurahModel {
   int? id;
   int? id_surah;
   int? no_ayat;
+  int? juz;
+  int? halaman;
   String? ayat_text;
   String? indo_text;
   String? baca_text;
 
-  BacaSurahModel({this.id, this.id_surah, this.no_ayat, this.ayat_text, this.indo_text, this.baca_text});
+  BacaSurahModel({this.id, this.id_surah, this.no_ayat, this.juz, this.halaman, this.ayat_text, this.indo_text, this.baca_text});
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = {};
     data['id'] = id;
     data['id_surah'] = id_surah;
     data['no_ayat'] = no_ayat;
+    data['juz'] = juz;
+    data['halaman'] = halaman;
     data['ayat_text'] = ayat_text;
     data['indo_text'] = indo_text;
     data['baca_text'] = baca_text;
@@ -61,9 +65,11 @@ class BacaSurahModel {
 
   factory BacaSurahModel.fromMap(Map<String, dynamic> map) {
     return BacaSurahModel(
-      id: map['id'] as int,
-      id_surah: map['id_surah'] as int,
-      no_ayat: map['no_ayat'] as int,
+      id: map['id'],
+      id_surah: map['id_surah'],
+      no_ayat: map['no_ayat'],
+      juz: map['juz'],
+      halaman: map['halaman'],
       ayat_text: map['ayat_text'] as String,
       indo_text: map['indo_text'] as String,
       baca_text: map['baca_text'] as String,
