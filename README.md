@@ -89,3 +89,6 @@ Data pada Quranku sesuai dengan Kemenag yang diambil dari data-data yang tercant
 3. <a href="https://github.com/Abdallah-Mekky/Quran-Database" target="_blank">Abdallah-Mekky</a>
 4. <a href="https://doa-doa-api-ahmadramadhan.fly.dev/api" target="_blank">Ahmad Ramadhan</a>
 4. <a href="https://bimasislam.kemenag.go.id/jadwalshalat" target="_blank">Bima Islam Kemenag</a>
+
+## 📆 Mendatang
+Aplikasi ini masih dalam tahap  pengembangan dan akan terus diperbaiki dan dikembangkan, insya Allah nanti diunggah kedalam Google Play Store.
