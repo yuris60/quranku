@@ -35,10 +35,22 @@ flutter run
 
 ## 📱 Screenshot
 
-<img src="assets/image/ss_home.png" width="180">
-<img src="assets/image/ss_quran_surah.png" width="180">
-<img src="assets/image/ss_quran_juz.png" width="180">
-<img src="assets/image/ss_quran_halaman.png" width="180">
+<table>
+  <tr>
+    <td>
+      <img src="assets/image/ss_home.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_quran_surah.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_quran_juz.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_quran_halaman.png" width="180">
+    </td>
+  </tr>
+</table>
 
 ## 📝 Sumber Data
 
