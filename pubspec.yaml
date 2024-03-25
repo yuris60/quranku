@@ -43,6 +43,11 @@ dependencies:
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
   equatable: ^2.0.5
+  font_awesome_flutter: ^10.7.0
+  intl: ^0.19.0
+  hijri: ^3.0.0
+  step_progress_indicator: ^1.0.2
+  scroll_to_index: ^3.0.1
 
 dev_dependencies:
   flutter_test:
