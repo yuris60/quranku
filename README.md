@@ -4,7 +4,13 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
 <img src="assets/image/banner_intro_1.png"></div>
 
 ## 📌Fitur
-- [x] Baca Al-Quran
+- [x] Baca Al-Quran (Berdasarkan Surah, Juz & Halaman)
+- [x] Doa Sehari-Hari
+- [x] Jadwal Shalat**
+- [x] Merekam Aktifitas Shalat
+- [x] Bookmark Surah dan Doa
+
+Note : (**) Saat ini hanya ada 2 lokasi  yang tersedia yakni Jakarta & Karawang.
 
 ## 📁 Download APK
 Jika ingin menginstall langsung menggunakan APK dapat mengunjungi laman <a href="https://github.com/yuris60/quranku/tree/main/APK">berikut ini</a>.
@@ -31,32 +37,20 @@ flutter run
 <table>
   <tr>
     <td>
-      <h3 style="text-align: center">List Surah</h3>
-      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home.png"></div>
+      <h3 align="center">Beranda</h3>
+      <div align="center"><img width="60%" height="60%" src="assets/image/ss_home.png"></div>
     </td>
-  </tr>
-  <tr>
     <td>
-      <h3 style="text-align: center">List Juz</h3>
-      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home2.png"></div>
+      <h3 align="center">List Surah</h3>
+      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_surah.png"></div>
     </td>
-  </tr>
-  <tr>
     <td>
-      <h3 style="text-align: center">List Halaman</h3>
-      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_home3.png"></div>
+      <h3 align="center">List Juz</h3>
+      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_juz.png"></div>
     </td>
-  </tr>
-  <tr>
     <td>
-      <h3 style="text-align: center">Baca Surah</h3>
-      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_bacasurah.png"></div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <h3 style="text-align: center">About</h3>
-      <div style="text-align:center"><img width="60%" height="60%" src="assets/image/ss_about.png"></div>
+      <h3 align="center">List Halaman</h3>
+      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_halaman.png"></div>
     </td>
   </tr>
 </table>
