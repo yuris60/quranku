@@ -10,7 +10,7 @@ Quranku dibangun dengan menggunakan framework Flutter + SQLite berbasis Mobile A
 - [x] Merekam Aktifitas Shalat
 - [x] Bookmark Surah dan Doa
 
-Note : (**) Saat ini hanya ada 2 lokasi  yang tersedia yakni Jakarta & Karawang.
+** Note : Saat ini hanya ada 2 lokasi  yang tersedia yakni Jakarta & Karawang.
 
 ## 📁 Download APK
 Jika ingin menginstall langsung menggunakan APK dapat mengunjungi laman <a href="https://github.com/yuris60/quranku/tree/main/APK">berikut ini</a>.
@@ -34,26 +34,11 @@ flutter run
 ```
 
 ## 📱 Screenshot
-<table>
-  <tr>
-    <td>
-      <h4 align="center">Beranda</h4>
-      <div align="center"><img src="assets/image/ss_home.png"></div>
-    </td>
-    <td>
-      <h4 align="center">List Surah</h4>
-      <div align="center"><img src="assets/image/ss_quran_surah.png"></div>
-    </td>
-    <td>
-      <h4 align="center">List Juz</h4>
-      <div align="center"><img src="assets/image/ss_quran_juz.png"></div>
-    </td>
-    <td>
-      <h4 align="center">List Halaman</h4>
-      <div align="center"><img src="assets/image/ss_quran_halaman.png"></div>
-    </td>
-  </tr>
-</table>
+
+<img src="assets/image/ss_home.png" width="180">
+<img src="assets/image/ss_quran_surah.png" width="180">
+<img src="assets/image/ss_quran_juz.png" width="180">
+<img src="assets/image/ss_quran_halaman.png" width="180">
 
 ## 📝 Sumber Data
 
