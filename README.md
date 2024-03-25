@@ -50,6 +50,34 @@ flutter run
       <img src="assets/image/ss_quran_halaman.png" width="180">
     </td>
   </tr>
+  <tr>
+    <td>
+      <img src="assets/image/ss_baca_surah.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_baca_juz.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_baca_halaman.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_doa.png" width="180">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/image/ss_baca_doa.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_bookmark_surah.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_bookmark_doa.png" width="180">
+    </td>
+    <td>
+      <img src="assets/image/ss_cari_surah_result.png" width="180">
+    </td>
+  </tr>
 </table>
 
 ## 📝 Sumber Data
