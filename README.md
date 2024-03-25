@@ -37,20 +37,20 @@ flutter run
 <table>
   <tr>
     <td>
-      <h3 align="center">Beranda</h3>
-      <div align="center"><img width="60%" height="60%" src="assets/image/ss_home.png"></div>
+      <h4 align="center">Beranda</h4>
+      <div align="center"><img src="assets/image/ss_home.png"></div>
     </td>
     <td>
-      <h3 align="center">List Surah</h3>
-      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_surah.png"></div>
+      <h4 align="center">List Surah</h4>
+      <div align="center"><img src="assets/image/ss_quran_surah.png"></div>
     </td>
     <td>
-      <h3 align="center">List Juz</h3>
-      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_juz.png"></div>
+      <h4 align="center">List Juz</h4>
+      <div align="center"><img src="assets/image/ss_quran_juz.png"></div>
     </td>
     <td>
-      <h3 align="center">List Halaman</h3>
-      <div align="center"><img width="60%" height="60%" src="assets/image/ss_quran_halaman.png"></div>
+      <h4 align="center">List Halaman</h4>
+      <div align="center"><img src="assets/image/ss_quran_halaman.png"></div>
     </td>
   </tr>
 </table>
