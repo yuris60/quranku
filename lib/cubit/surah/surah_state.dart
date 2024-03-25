@@ -17,6 +17,7 @@ class ListSurahInitial extends SurahState {
   List<Object?> get props => [];
 }
 class ListSurahLoading extends ListSurahInitial{}
+class ListSurahKosong extends ListSurahInitial{}
 class ListSurahSuccess extends ListSurahInitial{
   ListSurahSuccess(this.surahlist);
   final List<ListSurahModel> surahlist;
@@ -39,4 +40,16 @@ class GetSurahSuccess extends GetSurahInitial{
   final List<ListSurahModel> surahget;
 
   List<Object?> get props => [surahget];
+}
+
+/***
+ * SET STATUS BOOKMARK SURAH
+ * Trigger saat mengklik menandai surah
+ */
+class StatusBookmarkLoading extends GetSurahInitial{}
+class StatusBookmarkSuccess extends GetSurahInitial{
+  final int statusbookmark;
+  StatusBookmarkSuccess(this.statusbookmark);
+  @override
+  List<Object> get props => [statusbookmark];
 }

@@ -7,6 +7,7 @@ import '../cubit/baca/baca_cubit.dart';
 import '../cubit/database/database_cubit.dart';
 
 import '../constants.dart';
+import '../widget/core_title.dart';
 
 class BacaHalamanPage extends StatefulWidget {
   String? id_halaman;
@@ -35,8 +36,7 @@ class _BacaHalamanPageState extends State<BacaHalamanPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Quranku (Halaman " + widget.id_halaman! + ")",
-            style: TextStyle(color: Colors.white, fontSize: 18*ffem),),
+          title: CoreTitle(title: "Baca Halaman (Halaman " + widget.id_halaman! + ")", color: Colors.white, fontsize: 16),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -44,12 +44,16 @@ class _BacaHalamanPageState extends State<BacaHalamanPage> {
             icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           ),
           backgroundColor: Palette.primary,
-          // centerTitle: true,
+          centerTitle: true,
           elevation: 0,
           actions: [
             Padding(
-              padding: EdgeInsets.all(8*fem),
-              child: Image.asset("assets/image/logo_quranku_white.png"),
+              padding: EdgeInsets.all(15*fem),
+              child: SizedBox(
+                width: 24*fem,
+                height: 24*fem,
+                child: Image.asset("assets/image/logo_quranku_new_white.png")
+              ),
             )
           ],
         ),
@@ -119,7 +123,7 @@ class _BacaHalamanPageState extends State<BacaHalamanPage> {
                                               ),
 
                                             if((ayat.no_ayat!.toString() == "1" && ayat.id!.toString() != "0") || (index==0 && ayat.id_surah.toString() != "1"))
-                                              Image.asset("assets/image/bismillah_header2.jpg"),
+                                              Image.asset("assets/image/bismillah_header.jpg"),
 
                                             Container(
                                               padding: EdgeInsets.fromLTRB(15*fem, 10*fem, 15*fem, 0),

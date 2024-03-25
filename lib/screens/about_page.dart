@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
+import '../widget/core_title.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -18,13 +20,27 @@ class _AboutPageState extends State<AboutPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Quranku",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: CoreTitle(title: "QURANKU", color: Colors.black, fontsize: 18),
         centerTitle: true,
-        backgroundColor: Palette.primary,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Palette.black),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(15*fem),
+            child: SizedBox(
+                width: 24*fem,
+                height: 24*fem,
+                child: Image.asset("assets/image/logo_quranku_new_black.png")
+            ),
+          )
+        ],
       ),
       body: Center(
         child: Container(
@@ -37,10 +53,7 @@ class _AboutPageState extends State<AboutPage> {
                 SizedBox(
                   height: 200*fem,
                   width: 200*fem,
-                  child: CircleAvatar(
-                  backgroundImage:
-                    AssetImage("assets/image/logo_quranku.png")
-                  )
+                  child: Image.asset("assets/image/logo_quranku_new.png")
                 ),
                 SizedBox(height: 10*fem,),
                 Text(
@@ -83,7 +96,7 @@ class _AboutPageState extends State<AboutPage> {
                   )
                 ),
                 SizedBox(height: 20*fem,),
-                Text("Copyright © 2024 ",
+                Text("Copyright © " + DateFormat("yyyy").format(DateTime.now()),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15*ffem, fontFamily: "Inter Medium")
@@ -110,6 +123,14 @@ class _AboutPageState extends State<AboutPage> {
                   style: TextStyle(fontSize: 12*ffem,)
                 ),
                 Text("https://github.com/Abdallah-Mekky",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
+                Text("https://doa-doa-api-ahmadramadhan.fly.dev/api",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12*ffem,)
+                ),
+                Text("https://bimasislam.kemenag.go.id/jadwalshalat",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 12*ffem,)
                 ),

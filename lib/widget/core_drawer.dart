@@ -28,11 +28,11 @@ class _CoreDrawerState extends State<CoreDrawer> {
             ),
             currentAccountPicture: Container(
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
                   image: DecorationImage(
-                      fit: BoxFit.fill,
+                      fit: BoxFit.fitHeight,
+                      alignment: Alignment.centerLeft,
                       image: AssetImage(
-                        "assets/image/logo_quranku_white.png"
+                        "assets/image/logo_quranku_new_white.png"
                       )
                   )
               ),

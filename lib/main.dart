@@ -1,12 +1,10 @@
+import 'package:Quranku/cubit/waktu_shalat/waktu_shalat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'cubit/baca/baca_cubit.dart';
 import 'cubit/database/database_logic.dart';
 import 'cubit/database/database_cubit.dart';
-
-import 'cubit/halaman/halaman_cubit.dart';
-import 'cubit/juz/juz_cubit.dart';
-import 'cubit/surah/surah_cubit.dart';
 
 void main() {
   runApp(const QurankuApp());
@@ -32,14 +30,11 @@ class _QurankuAppState extends State<QurankuApp> {
             BlocProvider<DatabaseCubit>(
               create: (context) => DatabaseCubit()..initDB(),
             ),
-            BlocProvider<SurahCubit>(
-              create: (context) => SurahCubit(database: context.read<DatabaseCubit>().database!)..getListSurah(),
+            BlocProvider<BacaCubit>(
+              create: (context) => BacaCubit(database: context.read<DatabaseCubit>().database!)..getRandomAyat(),
             ),
-            BlocProvider<JuzCubit>(
-              create: (context) => JuzCubit(database: context.read<DatabaseCubit>().database!)..getListJuz(),
-            ),
-            BlocProvider<HalamanCubit>(
-              create: (context) => HalamanCubit(database: context.read<DatabaseCubit>().database!)..getListHalaman(),
+            BlocProvider<WaktuShalatCubit>(
+              create: (context) => WaktuShalatCubit(database: context.read<DatabaseCubit>().database!)..getWaktuShalat(),
             ),
           ],
           child: DatabaseCubicLogic(),

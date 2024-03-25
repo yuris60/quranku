@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+import '../widget/core_title.dart';
 
 class BacaJuzPage extends StatefulWidget {
   String? id_juz;
@@ -34,8 +35,8 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Quranku (Juz " + widget.id_juz! + ")",
-          style: TextStyle(color: Colors.white),),
+        title: CoreTitle(title: "Baca Juz (Juz " + widget.id_juz! + ")", color: Colors.white, fontsize: 18),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -47,8 +48,12 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
         elevation: 0,
         actions: [
           Padding(
-            padding: EdgeInsets.all(8*fem),
-            child: Image.asset("assets/image/logo_quranku_white.png"),
+            padding: EdgeInsets.all(15*fem),
+            child: SizedBox(
+              width: 24*fem,
+              height: 24*fem,
+              child: Image.asset("assets/image/logo_quranku_new_white.png")
+            ),
           )
         ],
       ),
@@ -117,7 +122,7 @@ class _BacaJuzPageState extends State<BacaJuzPage> {
                                           ),
 
                                         if((ayat.no_ayat!.toString() == "1" && ayat.id!.toString() != "0") || (index==0 && ayat.id_surah.toString() != "1"))
-                                          Image.asset("assets/image/bismillah_header2.jpg"),
+                                          Image.asset("assets/image/bismillah_header.jpg"),
 
                                         Container(
                                           padding: EdgeInsets.fromLTRB(15*fem, 10*fem, 15*fem, 0),
