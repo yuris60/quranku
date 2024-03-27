@@ -78,6 +78,11 @@ flutter run
       <img src="assets/image/ss_cari_surah_result.png" width="180">
     </td>
   </tr>
+  <tr>
+    <td colspan="4">
+      <img src="assets/image/banner_intro_2.png">
+    </td>
+  </tr>
 </table>
 
 ## 📝 Sumber Data
