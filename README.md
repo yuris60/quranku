@@ -28,8 +28,14 @@ Buka CMD pada folder yang akan menyimpan kloning project, lalu jalankan perintah
 
 ```
 git clone https://github.com/yuris60/quranku.git
+```
+```
 cd quranku
+```
+```
 flutter pub get
+```
+```
 flutter run
 ```
 
